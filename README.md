@@ -447,4 +447,4 @@ uv run ruff format && uv run ruff check && uv run ty check && uv run pytest
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
-Built with [FastAPI](https://fastapi.tiangolo.com/), [OpenAI Python SDK](https://github.com/openai/openai-python), [discord.py](https://github.com/Rapptz/discord.py), and [python-telegram-bot](https://python-telegram-bot.org/).
+
