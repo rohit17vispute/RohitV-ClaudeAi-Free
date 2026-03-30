@@ -15,7 +15,9 @@ Free Claude Code CLI & VSCode (No Anthropic API Key Required)
 This lightweight proxy intercepts Claude Code's Anthropic API calls and reroutes them to your provider of choice:
 
 **NVIDIA NIM** (40 req/min free) : High-speed access with a free tier of 40 requests/minute.
+
 **OpenRouter** (hundreds of models) Tap into hundreds of different AI models.
+
 **LM Studio** (fully local) Run everything fully offline and locally..
 
 [Features](#features) · [Quick Start](#quick-start) · [How It Works](#how-it-works) · [Discord Bot](#discord-bot) · [Configuration](#configuration)
