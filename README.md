@@ -326,10 +326,6 @@ Browse: [model.lmstudio.ai](https://model.lmstudio.ai)
 | `ENABLE_SUGGESTION_MODE_SKIP`     | Skip suggestion mode                                                               | `true`                                            |
 | `ENABLE_FILEPATH_EXTRACTION_MOCK` | Enable filepath extraction mock                                                    | `true`                                            |
 | `MESSAGING_PLATFORM`              | Messaging platform: `discord` or `telegram`                                        | `discord`                                         |
-| `DISCORD_BOT_TOKEN`               | Discord Bot Token                                                                  | `""`                                              |
-| `ALLOWED_DISCORD_CHANNELS`        | Comma-separated channel IDs (empty = none allowed)                                 | `""`                                              |
-| `TELEGRAM_BOT_TOKEN`              | Telegram Bot Token                                                                 | `""`                                              |
-| `ALLOWED_TELEGRAM_USER_ID`        | Allowed Telegram User ID                                                           | `""`                                              |
 | `VOICE_NOTE_ENABLED`              | Enable voice note handling                                                         | `true`                                            |
 | `WHISPER_MODEL`                   | Local Whisper model size                                                           | `base`                                            |
 | `WHISPER_DEVICE`                  | `cpu` \| `cuda`                                                                    | `cpu`                                             |
