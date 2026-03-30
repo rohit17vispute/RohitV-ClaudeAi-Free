@@ -7,7 +7,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Python 3.14](https://img.shields.io/badge/python-3.14-3776ab.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=for-the-badge)](https://github.com/astral-sh/uv)
-[![Tested with Pytest](https://img.shields.io/badge/testing-Pytest-00c0ff.svg?style=for-the-badge)](https://github.com/Alishahryar1/free-claude-code/actions/workflows/tests.yml)
 [![Type checking: Ty](https://img.shields.io/badge/type%20checking-ty-ffcc00.svg?style=for-the-badge)](https://pypi.org/project/ty/)
 [![Code style: Ruff](https://img.shields.io/badge/code%20formatting-ruff-f5a623.svg?style=for-the-badge)](https://github.com/astral-sh/ruff)
 [![Logging: Loguru](https://img.shields.io/badge/logging-loguru-4ecdc4.svg?style=for-the-badge)](https://github.com/Delgan/loguru)
@@ -241,105 +240,6 @@ LM Studio runs locally. Start the server in the Developer tab or via `lms server
 
 ---
 
-## Discord Bot
-
-Control Claude Code remotely from Discord. Send tasks, watch live progress, and manage multiple concurrent sessions. Telegram is also supported.
-
-**Capabilities:**
-
-- Tree-based message threading: reply to a message to fork the conversation
-- Session persistence across server restarts
-- Live streaming of thinking tokens, tool calls, and results
-- Unlimited concurrent Claude CLI sessions (provider concurrency controlled by `PROVIDER_MAX_CONCURRENCY`)
-- **Voice notes**: send voice messages; they are transcribed and processed like regular prompts (see [Voice Notes](#voice-notes))
-- Commands: `/stop` (cancel tasks; reply to a message to stop only that task), `/clear` (standalone: reset all sessions; reply to a message to clear that branch downwards), `/stats`
-
-### Setup
-
-1. **Create a Discord Bot**: Go to [Discord Developer Portal](https://discord.com/developers/applications), create an application, add a bot, and copy the token. Enable **Message Content Intent** under Bot settings.
-
-2. **Edit `.env`:**
-
-```dotenv
-MESSAGING_PLATFORM="discord"
-DISCORD_BOT_TOKEN="your_discord_bot_token"
-ALLOWED_DISCORD_CHANNELS="123456789,987654321"
-```
-
-> Enable Developer Mode in Discord (Settings → Advanced), then right-click a channel and "Copy ID" to get channel IDs. Comma-separate multiple channels. If empty, no channels are allowed.
-
-3. **Configure the workspace** (where Claude will operate):
-
-```dotenv
-CLAUDE_WORKSPACE="./agent_workspace"
-ALLOWED_DIR="C:/Users/yourname/projects"
-```
-
-4. **Start the server:**
-
-```bash
-uv run uvicorn server:app --host 0.0.0.0 --port 8082
-```
-
-5. **Invite the bot** (OAuth2 URL Generator, scopes: `bot`, permissions: Read Messages, Send Messages, Manage Messages, Read Message History). Send a task to an allowed channel and Claude responds with live thinking tokens and tool calls. Use commands above to cancel or clear.
-
-### Telegram (Alternative)
-
-To use Telegram instead, set `MESSAGING_PLATFORM=telegram` and configure:
-
-```dotenv
-TELEGRAM_BOT_TOKEN="123456789:ABCdefGHIjklMNOpqrSTUvwxYZ"
-ALLOWED_TELEGRAM_USER_ID="your_telegram_user_id"
-```
-
-Get a token from [@BotFather](https://t.me/BotFather); find your user ID via [@userinfobot](https://t.me/userinfobot).
-
-### Voice Notes
-
-Send voice messages on Telegram or Discord; they are transcribed to text and processed as regular prompts. Two transcription backends are available:
-
-- **Local Whisper** (default): Uses [Hugging Face transformers Whisper](https://huggingface.co/openai/whisper-large-v3-turbo) — free, no API key, works offline, CUDA compatible. No ffmpeg required.
-- **NVIDIA NIM**: Uses NVIDIA NIM Whisper/Parkeet models via gRPC — requires `NVIDIA_NIM_API_KEY`.
-
-Install the optional voice extras:
-
-```bash
-# For local Whisper (cpu/cuda)
-uv sync --extra voice_local
-
-# For NVIDIA NIM transcription
-uv sync --extra voice
-
-# Install both
-uv sync --extra voice --extra voice_local
-```
-
-**Configuration:**
-
-| Variable             | Description                                                                 | Default |
-| -------------------- | --------------------------------------------------------------------------- | ------- |
-| `VOICE_NOTE_ENABLED` | Enable voice note handling                                                  | `true`  |
-| `WHISPER_DEVICE`     | `cpu` \| `cuda` \| `nvidia_nim`                                             | `cpu`   |
-| `WHISPER_MODEL`      | See supported models below                                                  | `base`  |
-| `HF_TOKEN`           | Hugging Face token for faster model downloads (optional, for local Whisper) | —       |
-| `NVIDIA_NIM_API_KEY` | API key for NVIDIA NIM (required for `nvidia_nim` device)                   | —       |
-
-**Supported `WHISPER_MODEL` values:**
-
-| Model                                                                       | Device         | Description                            |
-| --------------------------------------------------------------------------- | -------------- | -------------------------------------- |
-| `tiny`, `base`, `small`, `medium`, `large-v2`, `large-v3`, `large-v3-turbo` | `cpu` / `cuda` | Local Whisper (Hugging Face)           |
-| `openai/whisper-large-v3`                                                   | `nvidia_nim`   | Auto language detection (best overall) |
-| `nvidia/parakeet-ctc-1.1b-asr`                                              | `nvidia_nim`   | English-only                           |
-| `nvidia/parakeet-ctc-0.6b-asr`                                              | `nvidia_nim`   | English-only                           |
-| `nvidia/parakeet-ctc-0.6b-zh-cn`                                            | `nvidia_nim`   | Mandarin Chinese                       |
-| `nvidia/parakeet-ctc-0.6b-zh-tw`                                            | `nvidia_nim`   | Traditional Chinese                    |
-| `nvidia/parakeet-ctc-0.6b-es`                                               | `nvidia_nim`   | Spanish                                |
-| `nvidia/parakeet-ctc-0.6b-vi`                                               | `nvidia_nim`   | Vietnamese                             |
-| `nvidia/parakeet-1.1b-rnnt-multilingual-asr`                                | `nvidia_nim`   | Multilingual RNNT                      |
-
----
-
 ## Models
 
 <details>
@@ -528,13 +428,9 @@ class MyPlatform(MessagingPlatform):
 
 ---
 
-## Contributing
-
-- Report bugs or suggest features via [Issues](https://github.com/Alishahryar1/free-claude-code/issues)
-- Add new LLM providers (Groq, Together AI, etc.)
+## Contributing 
+- Add new LLM providers (Grok, Together AI, etc.)
 - Add new messaging platforms (Slack, etc.)
-- Improve test coverage
-- Not accepting Docker Integration for now
 - New and interesting features
 
 ```bash
