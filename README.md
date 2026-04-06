@@ -62,7 +62,7 @@ This lightweight proxy intercepts Claude Code's Anthropic API calls and reroutes
 ### Clone & Configure
 
 ```bash
-git clone [https://github.com/rohit17vispute/RohitV-ClaudeAi-Free.git]
+git clone https://github.com/rohit17vispute/RohitV-ClaudeAi-Free.git
 cd free-claude-code
 cp .env.example .env
 ```
@@ -138,6 +138,9 @@ uv run uvicorn server:app --host 0.0.0.0 --port 8082
 
 ```bash
 ANTHROPIC_AUTH_TOKEN="freecc" ANTHROPIC_BASE_URL="http://localhost:8082" claude
+```
+```powershell
+$env:ANTHROPIC_AUTH_TOKEN="freecc"; $env:ANTHROPIC_BASE_URL="http://localhost:8082"; claude
 ```
 
 That's it! Claude Code now uses your configured provider for free.
