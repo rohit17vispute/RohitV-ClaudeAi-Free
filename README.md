@@ -63,7 +63,7 @@ This lightweight proxy intercepts Claude Code's Anthropic API calls and reroutes
 
 ```bash
 git clone https://github.com/rohit17vispute/RohitV-ClaudeAi-Free.git
-cd free-claude-code
+cd RohitV-ClaudeAi-Free
 cp .env.example .env
 ```
 
